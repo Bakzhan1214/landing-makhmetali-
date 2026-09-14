@@ -1,0 +1,599 @@
+/* =========================================================
+   Коворкинг «Пространство» — стили
+   Только чистый CSS3: Flexbox, Grid, media queries.
+   ========================================================= */
+
+/* ---------- 1. Переменные и базовые стили ---------- */
+:root {
+    --color-bg: #f7f9f8;
+    --color-surface: #ffffff;
+    --color-tint: #eef4f1;
+    --color-primary: #1e6f5c;
+    --color-primary-dark: #17594a;
+    --color-accent: #e8a33d;
+    --color-text: #1b2621;
+    --color-muted: #5c6b64;
+    --color-border: #dfe7e3;
+
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+
+    --shadow-sm: 0 2px 8px rgba(20, 45, 35, 0.06);
+    --shadow-md: 0 10px 30px rgba(20, 45, 35, 0.08);
+    --shadow-lg: 0 18px 45px rgba(20, 45, 35, 0.14);
+
+    --container: 1200px;
+    --gap: 24px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    display: block;
+    max-width: 100%;   /* изображения не выходят за пределы экрана */
+    height: auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+/* ---------- 2. Универсальные контейнеры ---------- */
+.container {
+    width: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.section {
+    padding: 56px 0;
+}
+
+.section--tinted {
+    background-color: var(--color-tint);
+}
+
+.section__title {
+    font-size: 1.75rem;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+}
+
+/* Декоративная черта под заголовком секции */
+.section__title::after {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 4px;
+    margin-top: 14px;
+    border-radius: 2px;
+    background-color: var(--color-accent);
+}
+
+.section__subtitle {
+    margin-top: 16px;
+    max-width: 620px;
+    color: var(--color-muted);
+}
+
+/* ---------- 3. Кнопки ---------- */
+.btn {
+    display: inline-block;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 2px solid transparent;
+    border-radius: 999px;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.2s ease, background-color 0.2s ease,
+                box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.btn--primary {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn--primary:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn--ghost {
+    background-color: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.btn--ghost:hover {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ---------- 4. Header / Hero ---------- */
+.hero {
+    background: linear-gradient(160deg, #e9f2ee 0%, #f7f9f8 65%);
+    padding-bottom: 64px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.logo {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+}
+
+.nav__list {
+    display: flex;
+    flex-wrap: wrap;      /* адаптивное меню: ссылки переносятся на новую строку */
+    gap: 8px 20px;
+    font-size: 0.95rem;
+}
+
+.nav__link {
+    color: var(--color-muted);
+    transition: color 0.2s ease;
+}
+
+.nav__link:hover {
+    color: var(--color-primary);
+}
+
+.hero__content {
+    padding-top: 32px;
+}
+
+.hero__tagline {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 6px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+    background-color: #ffffff;
+    border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+}
+
+.hero__title {
+    font-size: 2rem;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+}
+
+.hero__text {
+    margin-top: 20px;
+    max-width: 560px;
+    color: var(--color-muted);
+}
+
+.hero__content .btn {
+    margin-top: 32px;
+}
+
+/* ---------- 5. О коворкинге ---------- */
+.about {
+    display: grid;
+    grid-template-columns: 1fr;   /* мобильная версия: одна колонка */
+    gap: var(--gap);
+    margin-top: 32px;
+}
+
+.about__text p + p {
+    margin-top: 16px;
+}
+
+.about__img {
+    width: 100%;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+}
+
+/* ---------- 6. Карточки (преимущества и тарифы) ---------- */
+.cards {
+    display: grid;
+    grid-template-columns: 1fr;   /* мобильная версия: карточки в одну колонку */
+    gap: var(--gap);
+    margin-top: 32px;
+}
+
+.card {
+    padding: 28px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s ease, box-shadow 0.25s ease,
+                border-color 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    border-color: #cfe0d8;
+    box-shadow: var(--shadow-lg);
+}
+
+.card__title {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+}
+
+.card__text {
+    color: var(--color-muted);
+    font-size: 0.98rem;
+}
+
+/* ---------- 7. Тарифы ---------- */
+.price {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* ВАЖНО: карточка «Месяц» имеет класс price--featured, а не price,
+   поэтому position: relative нужно задать именно ей — иначе бейдж
+   «вылетает» из карточки и позиционируется относительно всей страницы. */
+.price--featured {
+    position: relative;
+    overflow: hidden;
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+}
+
+.price--featured:hover {
+    border-color: var(--color-primary);
+}
+
+/* Бейдж выровнен по правому верхнему углу внутри карточки —
+   так он не наезжает на соседнюю карточку и не обрезается. */
+.price__badge {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    padding: 4px 14px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.5;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #ffffff;
+    background-color: var(--color-accent);
+    border-radius: 999px;
+}
+
+.price__value {
+    margin: 8px 0 20px;
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--color-primary);
+}
+
+.price__unit {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-muted);
+}
+
+.price__list {
+    margin-bottom: 24px;
+}
+
+.price__list li {
+    padding: 8px 0 8px 26px;
+    position: relative;
+    font-size: 0.95rem;
+    color: var(--color-muted);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.price__list li:last-child {
+    border-bottom: none;
+}
+
+/* Галочка перед пунктом списка (нарисована чистым CSS) */
+.price__list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 15px;
+    width: 12px;
+    height: 7px;
+    border-left: 2px solid var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
+    transform: rotate(-45deg);
+}
+
+.price .btn {
+    margin-top: auto;   /* кнопка прижата к низу карточки */
+}
+
+/* ---------- 8. Галерея ---------- */
+.gallery {
+    display: grid;
+    grid-template-columns: 1fr;   /* мобильная версия: одна колонка */
+    gap: 16px;
+    margin-top: 32px;
+}
+
+.gallery__img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery__img:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ---------- 9. Форма ---------- */
+.form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    width: 100%;                 /* форма занимает всю доступную ширину */
+    margin-top: 32px;
+    padding: 28px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.form__field {
+    display: flex;
+    flex-direction: column;
+}
+
+.form__label {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.form__input {
+    width: 100%;
+    padding: 14px 16px;          /* комфортный размер полей на мобильном */
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form__input::placeholder {
+    color: #9aa8a1;
+}
+
+.form__input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(30, 111, 92, 0.12);
+}
+
+.form__textarea {
+    resize: vertical;
+    min-height: 130px;
+}
+
+.form__submit {
+    width: 100%;
+    font-family: inherit;
+}
+
+/* ---------- 10. Footer ---------- */
+.footer {
+    margin-top: 24px;
+    padding-top: 48px;
+    color: #d7e3dd;
+    background-color: #16362c;
+}
+
+.footer__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+}
+
+.footer__logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.footer__title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.footer__text,
+.footer__address {
+    font-size: 0.95rem;
+    font-style: normal;
+    color: #a9c0b7;
+}
+
+.footer__address a {
+    transition: color 0.2s ease;
+}
+
+.footer__address a:hover {
+    color: #ffffff;
+}
+
+.footer__bottom {
+    margin-top: 36px;
+    padding-top: 20px;
+    padding-bottom: 24px;
+    font-size: 0.85rem;
+    color: #8fa79e;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* =========================================================
+   11. Адаптивность
+   ========================================================= */
+
+/* --- Планшеты (от 640px) --- */
+@media (min-width: 640px) {
+    .section {
+        padding: 72px 0;
+    }
+
+    .section__title {
+        font-size: 2rem;
+    }
+
+    .hero__title {
+        font-size: 2.6rem;
+    }
+
+    .cards,
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);   /* карточки в две колонки */
+    }
+
+    .about {
+        grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+    }
+
+    .footer__inner {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* --- Desktop 1280px --- */
+@media (min-width: 1280px) {
+    .container {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    .section {
+        padding: 96px 0;
+    }
+
+    .section__title {
+        font-size: 2.25rem;
+    }
+
+    .section__subtitle {
+        font-size: 1.05rem;
+    }
+
+    /* Навигация в одну строку: логотип слева, меню справа */
+    .nav {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 28px;
+        padding-bottom: 28px;
+    }
+
+    .hero {
+        padding-bottom: 96px;
+    }
+
+    .hero__content {
+        padding-top: 56px;
+    }
+
+    .hero__title {
+        font-size: 3.25rem;
+        max-width: 820px;
+    }
+
+    .hero__text {
+        font-size: 1.08rem;
+    }
+
+    /* Три колонки для преимуществ и тарифов */
+    .cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Три колонки для галереи */
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .gallery__img {
+        height: 240px;
+    }
+
+    /* Форма: два поля в ряд, сообщение и кнопка — на всю ширину */
+    .form {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        padding: 40px;
+    }
+
+    .form__field:nth-child(3),
+    .form__submit {
+        grid-column: 1 / -1;
+    }
+
+    .form__submit {
+        justify-self: start;
+        width: auto;
+        min-width: 220px;
+    }
+
+    /* Футер в три колонки */
+    .footer__inner {
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 40px;
+    }
+}
