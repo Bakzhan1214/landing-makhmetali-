@@ -16,14 +16,20 @@
 
     <!-- ============ HEADER / HERO ============ -->
     <header class="hero" id="top">
-        <nav class="nav container">
-            <a class="logo" href="#top">Пространство</a>
-            <ul class="nav__list">
-                <li><a class="nav__link" href="#about">О нас</a></li>
-                <li><a class="nav__link" href="#benefits">Преимущества</a></li>
-                <li><a class="nav__link" href="#prices">Тарифы</a></li>
-                <li><a class="nav__link" href="#gallery">Пространство</a></li>
-                <li><a class="nav__link" href="#contacts">Контакты</a></li>
+        <nav class="navigation container">
+            <a class="navigation__logo" href="#top">Пространство</a>
+            <button class="navigation__toggle" type="button" aria-expanded="false" aria-controls="main-menu">
+                <span class="navigation__toggle-line"></span>
+                <span class="navigation__toggle-line"></span>
+                <span class="navigation__toggle-line"></span>
+                <span class="visually-hidden">Открыть меню</span>
+            </button>
+            <ul class="navigation__list" id="main-menu">
+                <li class="navigation__item"><a class="navigation__link" href="#about">О нас</a></li>
+                <li class="navigation__item"><a class="navigation__link" href="#benefits">Преимущества</a></li>
+                <li class="navigation__item"><a class="navigation__link" href="#prices">Тарифы</a></li>
+                <li class="navigation__item"><a class="navigation__link" href="#gallery">Пространство</a></li>
+                <li class="navigation__item"><a class="navigation__link" href="#contacts">Контакты</a></li>
             </ul>
         </nav>
 
@@ -35,7 +41,7 @@
                 которые делают своё дело. Арендуйте место на день, месяц или год —
                 всё остальное мы уже подготовили.
             </p>
-            <a class="btn btn--primary" href="#prices">Забронировать место</a>
+            <a class="hero__button btn btn--primary" href="#prices">Забронировать место</a>
         </div>
     </header>
 
@@ -111,10 +117,10 @@
                         <li>Wi-Fi и электричество</li>
                         <li>Кофе и чай</li>
                     </ul>
-                    <a class="btn btn--ghost" href="#contacts">Выбрать тариф</a>
+                    <a class="card__button btn btn--ghost" href="#contacts">Выбрать тариф</a>
                 </article>
 
-                <article class="card price--featured">
+                <article class="card card--featured price">
                     <p class="price__badge">Популярный</p>
                     <h3 class="card__title">Месяц</h3>
                     <p class="price__value">12&nbsp;900&nbsp;₽<span class="price__unit">/ месяц</span></p>
@@ -124,7 +130,7 @@
                         <li>Кофе, чай и печенье</li>
                         <li>Почтовый ящик и адрес</li>
                     </ul>
-                    <a class="btn btn--primary" href="#contacts">Выбрать тариф</a>
+                    <a class="card__button btn btn--primary" href="#contacts">Выбрать тариф</a>
                 </article>
 
                 <article class="card price">
@@ -136,7 +142,7 @@
                         <li>Круглосуточный доступ</li>
                         <li>Персональный менеджер</li>
                     </ul>
-                    <a class="btn btn--ghost" href="#contacts">Выбрать тариф</a>
+                    <a class="card__button btn btn--ghost" href="#contacts">Выбрать тариф</a>
                 </article>
             </div>
         </section>
@@ -231,6 +237,26 @@
             <p>&copy; 2026 Коворкинг «Пространство». Все права защищены.</p>
         </div>
     </footer>
+
+    <script>
+        const navigation = document.querySelector(".navigation");
+        const toggle = document.querySelector(".navigation__toggle");
+        const menuLinks = document.querySelectorAll(".navigation__link");
+
+        toggle.addEventListener("click", () => {
+            const isOpen = navigation.classList.toggle("navigation--open");
+            toggle.setAttribute("aria-expanded", String(isOpen));
+            toggle.querySelector(".visually-hidden").textContent = isOpen ? "Закрыть меню" : "Открыть меню";
+        });
+
+        menuLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+                navigation.classList.remove("navigation--open");
+                toggle.setAttribute("aria-expanded", "false");
+                toggle.querySelector(".visually-hidden").textContent = "Открыть меню";
+            });
+        });
+    </script>
 
 </body>
 
