@@ -210,6 +210,10 @@ ul {
     letter-spacing: -0.02em;
   }
 
+  &__toggle {
+    display: none;
+  }
+
   &__list {
     display: flex;
     flex-direction: column;
@@ -225,6 +229,18 @@ ul {
       color: $primary-color;
     }
   }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 // 6. Блок «О коворкинге»
@@ -511,6 +527,62 @@ ul {
 
 // 11. Mobile: до 600 px
 @include respond-to(mobile) {
+  .navigation {
+    position: relative;
+    gap: 0;
+
+    &__toggle {
+      display: flex;
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 8px;
+      border: 1px solid $border-color;
+      border-radius: 10px;
+      color: $primary-color;
+      background-color: $surface-color;
+      cursor: pointer;
+    }
+
+    &__toggle-line {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background-color: currentColor;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    &__list {
+      display: none;
+      width: 100%;
+      padding-top: 16px;
+    }
+
+    &--open {
+      .navigation__list {
+        display: flex;
+      }
+
+      .navigation__toggle-line:first-child {
+        transform: translateY(7px) rotate(45deg);
+      }
+
+      .navigation__toggle-line:nth-child(2) {
+        opacity: 0;
+      }
+
+      .navigation__toggle-line:last-child {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+    }
+  }
+
   .hero {
     padding-bottom: 48px;
 
@@ -551,6 +623,10 @@ ul {
       flex-wrap: wrap;
       justify-content: center;
       gap: 8px 20px;
+    }
+
+    &__toggle {
+      display: none;
     }
   }
 
